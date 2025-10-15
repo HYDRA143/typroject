@@ -1,0 +1,54 @@
+{
+  "security_settings": {
+    "max_file_size": "100MB",
+    "allowed_file_types": [
+      "apk",
+      "pdf",
+      "zip",
+      "rar",
+      "7z",
+      "exe",
+      "dll",
+      "doc",
+      "docx",
+      "xls",
+      "xlsx",
+      "ppt",
+      "pptx",
+      "jpg",
+      "jpeg",
+      "png",
+      "gif"
+    ],
+    "threat_databases": {
+      "virustotal_api": "https://www.virustotal.com/vtapi/v2/",
+      "malware_bazaar": "https://bazaar.abuse.ch/api/v1/",
+      "urlvoid_api": "https://api.urlvoid.com/1000/",
+      "haveibeenpwned": "https://haveibeenpwned.com/api/v3/"
+    },
+    "network_scanning": {
+      "max_ports": 1000,
+      "timeout_seconds": 30,
+      "max_threads": 50
+    },
+    "encryption": {
+      "algorithm": "AES-256",
+      "key_derivation": "PBKDF2",
+      "iterations": 100000
+    }
+  },
+  "api_endpoints": {
+    "analyze_file": "/api/security/analyze-file",
+    "scan_url": "/api/security/scan-url",
+    "scan_network": "/api/security/scan-network",
+    "check_breach": "/api/security/check-breach",
+    "vault_operations": "/api/vault/",
+    "generate_report": "/api/security/generate-report"
+  },
+  "logging": {
+    "level": "INFO",
+    "max_file_size": "10MB",
+    "backup_count": 5,
+    "log_directory": "backend/logs/"
+  }
+}
