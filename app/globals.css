@@ -1240,6 +1240,28 @@
   }
 }
 
+/* Light mode: subtle gray background and darker text */
+html:not(.dark) {
+  background-color: #f3f4f6; /* Tailwind gray-100 */
+  color: #0f172a; /* dark text */
+}
+
+html:not(.dark) body {
+  background-color: inherit;
+  color: inherit;
+}
+
+/* Make elements that use .bg-white match the light-gray feel */
+html:not(.dark) .bg-white {
+  background-color: #f8fafc !important; /* slightly lighter gray for cards */
+  color: inherit;
+}
+
+/* So borders look softer in light gray mode */
+html:not(.dark) .border {
+  border-color: #e6e9ee;
+}
+
 /* Responsive cyberpunk effects */
 @media (max-width: 768px) {
   .hover-glow:hover {

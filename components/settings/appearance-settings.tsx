@@ -6,22 +6,44 @@ import { Switch } from "@/components/ui/switch"
 import { Moon, Bell, Palette } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
+type ThemeOption = "light" | "dark" | "system"
+
 export function AppearanceSettings() {
+  const [theme, setTheme] = useState<ThemeOption>("system")
   const [darkMode, setDarkMode] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(true)
   const { toast } = useToast()
 
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem("mobicure_dark_mode")
-    const savedNotifications = localStorage.getItem("mobicure_push_notifications")
-
-    if (savedDarkMode !== null) {
-      setDarkMode(savedDarkMode === "true")
-    }
-    if (savedNotifications !== null) {
-      setPushNotifications(savedNotifications === "true")
+    // Initialize from localStorage or system
+    const saved = typeof window !== "undefined" ? localStorage.getItem("theme") : null
+    if (saved === "light" || saved === "dark") {
+      setTheme(saved)
+    } else {
+      setTheme("system")
     }
   }, [])
+
+  useEffect(() => {
+    // Apply the selected theme
+    if (typeof window === "undefined") return
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark")
+      localStorage.setItem("theme", "dark")
+    } else if (theme === "light") {
+      document.documentElement.classList.remove("dark")
+      localStorage.setItem("theme", "light")
+    } else {
+      // system
+      localStorage.removeItem("theme")
+      // follow system preference
+      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.classList.add("dark")
+      } else {
+        document.documentElement.classList.remove("dark")
+      }
+    }
+  }, [theme])
 
   const handleDarkModeToggle = (enabled: boolean) => {
     setDarkMode(enabled)
